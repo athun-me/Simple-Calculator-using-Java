@@ -9,10 +9,14 @@ import javax.swing.SwingConstants;
 
 public class calculator implements ActionListener{
 	
-	boolean isOperatorClicked=false;
+	
 	
 	String OldValue;
 	String newValue;
+	float OldValuef;
+	float result;
+	float newValuef;
+	int calculation;
 	JFrame jf;
 	JLabel displayLabel;
 	JButton sevenButton;
@@ -32,6 +36,7 @@ public class calculator implements ActionListener{
 	JButton divisionButton;
 	JButton subtractionButton;
 	JButton clearButton;
+	boolean isOperatorClicked=false;
 	
 	public calculator() {
 		jf=new JFrame("Calculator");
@@ -116,27 +121,32 @@ public class calculator implements ActionListener{
 		
 		equlTOButton=new JButton("=");
 		equlTOButton.setBounds(230, 430, 80, 80);
-		zeroButton.setFont(new Font("Arial",Font.PLAIN,40));
+		equlTOButton.setFont(new Font("Arial",Font.PLAIN,40));
+		equlTOButton.addActionListener(this);
 		jf.add(equlTOButton);
 		
 		additionButton=new JButton("+");
 		additionButton.setBounds(330, 130, 80, 80);
 		additionButton.setFont(new Font("Arial",Font.PLAIN,40));
+		additionButton.addActionListener(this);
 		jf.add(additionButton);
 		
 		multiplicationButton=new JButton("X");
 		multiplicationButton.setBounds(330, 230, 80, 80);
 		multiplicationButton.setFont(new Font("Arial",Font.PLAIN,40));
+		multiplicationButton.addActionListener(this);
 		jf.add(multiplicationButton);
 		
 		divisionButton=new JButton("/");
 		divisionButton.setBounds(330, 330, 80, 80);
 		divisionButton.setFont(new Font("Arial",Font.PLAIN,40));
+		divisionButton.addActionListener(this);
 		jf.add(divisionButton);
 		
 		subtractionButton=new JButton("-");
 		subtractionButton.setBounds(330, 430, 80, 80);
 		subtractionButton.setFont(new Font("Arial",Font.PLAIN,40));
+		subtractionButton.addActionListener(this);
 		jf.add(subtractionButton);
 		
 		clearButton=new JButton("CLEAR");
@@ -163,12 +173,16 @@ public class calculator implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		 
 		if(e.getSource()==sevenButton) {
+			
+					
 			if(isOperatorClicked) {
-				displayLabel.setText("7");
+				displayLabel.setText("7"); 
 				isOperatorClicked=false;
 			}else {
 				displayLabel.setText(displayLabel.getText()+"7");
 			}
+			
+			
 			
 		}else if (e.getSource()==eightButton) {
 			if(isOperatorClicked) {
@@ -235,26 +249,58 @@ public class calculator implements ActionListener{
 				displayLabel.setText(displayLabel.getText()+"0");
 			}
 		}else if (e.getSource()==clearButton) {
-			displayLabel.setText(" ");
+			displayLabel.setText(" ");	
 		}else if (e.getSource()==additionButton) {
-			
-		
 			isOperatorClicked=true;
 			OldValue=displayLabel.getText();
-			
+			displayLabel.setText(displayLabel.getText()+"+");
+			calculation=1;
 		}else if (e.getSource()==multiplicationButton) {
 			isOperatorClicked=true;
 			OldValue=displayLabel.getText();
-			
+			displayLabel.setText(displayLabel.getText()+"X");
+			calculation=2;
+		}else if (e.getSource()==divisionButton) {
+			isOperatorClicked=true;
+			OldValue=displayLabel.getText();
+			displayLabel.setText(displayLabel.getText()+"/");
+			calculation=3;
+		}else if (e.getSource()==subtractionButton) {
+			isOperatorClicked=true;
+			OldValue=displayLabel.getText();
+			displayLabel.setText(displayLabel.getText()+"-");
+			calculation=4;
 		}else if (e.getSource()==equlTOButton) {
-			
-			String newValue=displayLabel.getText();
-			float OldValuef=Float.parseFloat(OldValue);
-			float newValuef=Float.parseFloat(newValue);
-			float result=OldValuef+newValuef;
-			displayLabel.setText(result+"");
-			
-			
+			switch(calculation) {
+			case 1:
+				newValue=displayLabel.getText();
+				OldValuef=Float.parseFloat(OldValue);
+				newValuef=Float.parseFloat(newValue);
+				result=OldValuef+newValuef;
+				displayLabel.setText(result+"");
+				break;
+			case 2:
+				newValue=displayLabel.getText();
+				OldValuef=Float.parseFloat(OldValue);
+				newValuef=Float.parseFloat(newValue);
+				result=OldValuef*newValuef;
+				displayLabel.setText(result+"");
+				break;
+			case 3:
+				newValue=displayLabel.getText();
+				OldValuef=Float.parseFloat(OldValue);
+				newValuef=Float.parseFloat(newValue);
+				result=OldValuef/newValuef;
+				displayLabel.setText(result+"");
+				break;
+			case 4:
+				newValue=displayLabel.getText();
+				OldValuef=Float.parseFloat(OldValue);
+				newValuef=Float.parseFloat(newValue);
+				result=OldValuef-newValuef;
+				displayLabel.setText(result+"");
+				break;
+			}
 		}
 
 	}
